@@ -53,7 +53,7 @@ function findcustomer(email){
     var headers = { "suresteps.session.token": localStorage.getItem("token")};
     $.ajax({
         type: 'GET',
-        url: `/customer/${email}`,
+        url: `https://dev.stedi.me/customer/${email}`,
         contentType: 'application/text',
         dataType: 'text',
         headers: headers,
@@ -84,7 +84,7 @@ function createcustomer(){
 
     $.ajax({
         type: 'POST',
-        url: '/customer',
+        url: 'https://dev.stedi.me/customer',
         data: JSON.stringify(customer),
         contentType: 'application/text',
         dataType: 'text',
@@ -96,7 +96,7 @@ function createcustomer(){
 
     $.ajax({
         type: 'POST',
-        url: '/user',
+        url: 'https://dev.stedi.me/user',
         data: JSON.stringify({'userName':email, email, password, phone, "birthDate":bday, 'verifyPassword':verifypassword}),//we are using the email as the user name
         success: function(data) { alert(data);
         window.location.href = "/index.html"},

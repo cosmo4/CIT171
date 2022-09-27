@@ -38,7 +38,7 @@ function checkexpiredtoken(token){
     usertoken = localStorage.getItem("token");
     $.ajax({
        type: 'GET',
-        url: '/validate/'+token,
+        url: 'https://dev.stedi.me/validate/'+token,
         data: JSON.stringify({usertoken}),
         success: function(data){savetoken(data)},
         contentType: "application/text",
@@ -51,7 +51,7 @@ function userlogin(){
     setusername();
     $.ajax({
         type: 'POST',
-        url: '/login',
+        url: 'https://dev.stedi.me/login',
         data: JSON.stringify({userName, password}),
         success: function(data) {
             window.location.href = "/timer.html#"+data;//add the token to the url
@@ -92,7 +92,7 @@ function createbutton(){
 function createuser(){
     $.ajax({
         type: 'POST',
-        url: '/user',
+        url: 'https://dev.stedi.me/user',
         data: JSON.stringify({userName, 'email': userName, password, 'verifyPassword': vpwd, 'accountType':'Personal'}),//we are using the email as the user name
         success: function(data) { alert(data);
 //        readonlyforms("newUser");
@@ -106,7 +106,7 @@ function createuser(){
 function getstephistory(){
       $.ajax({
             type: 'POST',
-            url: '/stephistory',
+            url: 'https://dev.stedi.me/stephistory',
             data: JSON.stringify({userName}),
             success: function(data) { alert(data);
             json = $.parseJSON(data);
