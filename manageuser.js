@@ -3,21 +3,29 @@
 let phonenumber = "";
 let onetimepassword = "";
 let verifypassword = "";
-let onetimepasswordRegEx=/((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!]).{6,40})/;
+let passwordRegEx=/((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%!]).{6,40})/;
 
 function setphonenumber(){
-    userName = $("#phonenumber").val();
+    phonenumber = $("#phonenumber").val();
+}
+
+const sendText=()=>{
+    $.ajax({
+        type: 'Post',
+        url: 'https://dev.stedi.me/twofactorlogin/'+phonenumber,
+        contentType: "application/text",
+        dataType: 'text'
+    });
 }
 
 function setonetimepassword(){
     password = $("#onetimepassword").val();
-    var valid=onetimepasswordRegEx.exec(onetimepassword);
     
 }
 
-function setverifyonetimepassword(){
-    verifyonetimepassword = $("#verifypassword").val();
-    if (verifyonetimepassword!=onetimepassword){
+function setverifypassword(){
+    verifypassword = $("#verifypassword").val();
+    if (verifypassword!=onetimepassword){
         alert('Passwords must be entered the same twice');
     }
 }
@@ -49,8 +57,8 @@ function userlogin(){
     setphonenumber();
     $.ajax({
         type: 'POST',
-        url: 'https://dev.stedi.me/login',
-        data: JSON.stringify({phonenumber, onetimepassword}),
+        url: 'https://dev.stedi.me/twofactorlogin/'+phonenumber,
+        data: JSON.stringify({phoneNumber:phonenumber, oneTimePassword:onetimepassword}),
         success: function(data) {
             window.location.href = "/timer.html#"+data;//add the token to the url
         },
